@@ -1,11 +1,12 @@
 <script>
     export let icon
+    export let type = 'fas'
 
     let tag = 'fa-' + icon
 </script>
 
 {#if tag}
-    <i class="fas {tag}" />
+    <i class="{type} {tag}" />
 {/if}
 
 <style>

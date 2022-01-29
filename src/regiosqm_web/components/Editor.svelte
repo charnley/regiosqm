@@ -4,36 +4,81 @@
     export let sketcherName = 'sketcherSingle'
     export let atoms = ['H', 'Li', 'Be', 'C', 'N', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Br', 'I']
 
+    let clientWidth
+    let clientHeight
+
     let jquery
     let sketcher
 
-    const chemdoodleClick = (action) => {
-        console.log(action)
+    const initializeChemdoodle = () => {
+        sketcher = new ChemDoodle.SketcherCanvas(sketcherName, 100, 100, {useServices: false, oneMolecule: true})
+        chemdoodleResize(sketcher, [500, 500])
+        jquery = ChemDoodle.lib.jQuery
+        onWindowResize()
     }
 
-    const initializeChemdoodle = () => {
-        let sketcher = new ChemDoodle.SketcherCanvas(sketcherName, 100, 100, {useServices: false, oneMolecule: true})
+    const chemdoodleResize = (canvas, dim) => {
+        var width = dim[0]
+        var height = dim[1]
+        canvas.resize(width, height)
+        setTimeout(function () {
+            chemdoodleClick('#sketcherSingle_button_scale_plus')
+        }, 50)
+    }
 
-        jquery = ChemDoodle.lib.jQuery
-        // this.onResize();
+    const chemdoodleClick = (btnId) => {
+        let query = btnId.includes('#') ? btnId : '#' + sketcherName + btnId
+        let btns = jquery.find(query)
+        let btn = btns[0]
+        btn.click()
+        return 1
+    }
+
+    const chemdoodleEditorBtn = ($btn) => {
+        var btnId = $btn.attr('href')
+        chemdoodleClick(btnId)
+        return false
+    }
+
+    const chemdoodleGetMol = (canvas) => {
+        var mol = canvas.getMolecule()
+        var molFile = ChemDoodle.writeMOL(mol)
+        return molFile
+    }
+
+    const chemdoodleSetMol = (canvas, mol) => {
+        molcd = ChemDoodle.readMOL(mol)
+        canvas.loadMolecule(molcd)
+        return false
+    }
+
+    const getEditorDimensions = () => {
+        return [clientWidth, clientHeight]
+    }
+
+    const onWindowResize = () => {
+        chemdoodleResize(sketcher, getEditorDimensions())
+        chemdoodleClick('_button_center')
     }
 </script>
 
+<svelte:window on:resize={onWindowResize} />
+
 <svelte:head>
     <script src="/chemdoodle/ChemDoodleWeb-unpacked.js"></script>
-    <script src="/chemdoodle/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script>
+    <!-- <script src="/chemdoodle/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script> -->
     <link rel="stylesheet" href="/chemdoodle/uis/jquery-ui-1.11.4.css" />
 </svelte:head>
 
 <div class="chemdoodle-editor p-5">
     <div class="shadow-outline rounded bg-white" style="width:500px; height:500px">
-        <div class="chemdoodle-container h-full w-full" ref="chemdoodleCanvas">
-            <canvas id={sketcherName} />
-            <div class="chemdoodle-hack1 block absolute bg-white " />
-            <div class="chemdoodle-hack2 " />
+        <div class="chemdoodle-container h-full w-full" ref="chemdoodleCanvas" bind:clientWidth bind:clientHeight>
+            <!-- <canvas id={sketcherName} /> -->
+            <!-- <div class="chemdoodle-hack1 block absolute bg-white " /> -->
+            <!-- <div class="chemdoodle-hack2 " /> -->
         </div>
 
-        <div class="chemdoodle-tools">
+        <div class="chemdoodle-tools relative">
             <ul class="flex">
                 <li>
                     <IconBtn on:click={() => chemdoodleClick('_button_erase')} icon="eraser" tip="delete atom" />
@@ -63,7 +108,7 @@
 
             <br />
 
-            <ul class="flex">
+            <ul class="">
                 {#each atoms as atom}
                     <IconBtn on:click={() => chemdoodleClick('_button_label_' + atom.toLowerCase())}>{atom}</IconBtn>
                 {/each}
@@ -71,7 +116,7 @@
 
             <br />
 
-            <ul class="flex">
+            <ul class="">
                 <li>
                     <IconBtn on:click={() => chemdoodleClick('_button_bond_single')}>
                         <img
@@ -123,6 +168,28 @@
     </div>
 </div>
 
-<style>
-    /* your styles go here */
+<style lang="postcss">
+    /* chemdoodle */
+
+    .chemdoodle-container div:first-of-type {
+        display: none;
+    }
+
+    .chemdoodle-container {
+        position: relative;
+    }
+
+    .chemdoodle-hack1 {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        display: block;
+        background: white;
+    }
+
+    .chemdoodle-tools li {
+        @apply pl-2 pt-2;
+    }
 </style>

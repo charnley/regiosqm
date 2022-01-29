@@ -27,8 +27,10 @@ culpa et culpa duis.
 
 ## TODO
 
- - [ ] Chemdoodle integration
+ - [ ] Chemdoodle integration / jquery clicks
  - [ ] AJAX Requests
- - [ ] 
+ - [ ] About page
+ - [ ] Result page
+ - [ ] popup / modal / userfeedback
 
 
