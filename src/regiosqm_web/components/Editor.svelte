@@ -169,7 +169,7 @@
 </div>
 
 <style lang="postcss">
-    /* chemdoodle */
+    /* chemdoodle 
 
     .chemdoodle-container div:first-of-type {
         display: none;
@@ -191,5 +191,5 @@
 
     .chemdoodle-tools li {
         @apply pl-2 pt-2;
-    }
+   } */
 </style>

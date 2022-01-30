@@ -32,6 +32,6 @@ culpa et culpa duis.
  - [ ] AJAX Requests
  - [ ] About page
  - [ ] Result page
- - [ ] popup / modal / userfeedback
+ - [x] popup / modal / userfeedback
 
 
