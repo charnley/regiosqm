@@ -38,5 +38,4 @@
     :global(a:hover img) {
         filter: invert(100%);
     }
-
 </style>

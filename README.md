@@ -28,10 +28,12 @@ culpa et culpa duis.
 ## TODO
 
  - [X] Chemdoodle integration / jquery clicks
- - [ ] PostCSS on generated elements
- - [ ] AJAX Requests
+ - [X] PostCSS on generated elements
+ - [X] AJAX Requests to cactus
+ - [ ] Read result into chemdoodle
+ - [ ] Integrate rdkit for smiles convertion
  - [ ] About page
  - [ ] Result page
  - [x] popup / modal / userfeedback
 
-
+ - [ ] 

@@ -1,3 +1,18 @@
+<script context="module">
+    let sketcher
+
+    export function chemdoodleGetMol() {
+        let mol = sketcher.getMolecule()
+        let molFile = ChemDoodle.writeMOL(mol)
+        return molFile
+    }
+
+    export function chemdoodleSetMol(mol) {
+        molcd = ChemDoodle.readMOL(mol)
+        sketcher.loadMolecule(molcd)
+    }
+</script>
+
 <script>
     import IconBtn from './IconBtn.svelte'
 
@@ -8,7 +23,7 @@
     let clientHeight
 
     let jquery
-    let sketcher
+    // let sketcher
 
     const initializeChemdoodle = () => {
         sketcher = new ChemDoodle.SketcherCanvas(sketcherName, 100, 100, {useServices: false, oneMolecule: true})
@@ -34,24 +49,6 @@
         return 1
     }
 
-    const chemdoodleEditorBtn = ($btn) => {
-        var btnId = $btn.attr('href')
-        chemdoodleClick(btnId)
-        return false
-    }
-
-    const chemdoodleGetMol = (canvas) => {
-        var mol = canvas.getMolecule()
-        var molFile = ChemDoodle.writeMOL(mol)
-        return molFile
-    }
-
-    const chemdoodleSetMol = (canvas, mol) => {
-        molcd = ChemDoodle.readMOL(mol)
-        canvas.loadMolecule(molcd)
-        return false
-    }
-
     const getEditorDimensions = () => {
         return [clientWidth, clientHeight]
     }
@@ -66,7 +63,7 @@
 
 <svelte:head>
     <script src="/chemdoodle/ChemDoodleWeb-unpacked.js"></script>
-    <!-- <script src="/chemdoodle/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script> -->
+    <script src="/chemdoodle/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script>
     <link rel="stylesheet" href="/chemdoodle/uis/jquery-ui-1.11.4.css" />
 </svelte:head>
 
@@ -108,7 +105,7 @@
 
             <br />
 
-            <ul class="">
+            <ul class="flex">
                 {#each atoms as atom}
                     <IconBtn on:click={() => chemdoodleClick('_button_label_' + atom.toLowerCase())}>{atom}</IconBtn>
                 {/each}
@@ -116,7 +113,7 @@
 
             <br />
 
-            <ul class="">
+            <ul class="flex">
                 <li>
                     <IconBtn on:click={() => chemdoodleClick('_button_bond_single')}>
                         <img
@@ -171,7 +168,7 @@
 <style lang="postcss">
     /* chemdoodle  */
 
-    .chemdoodle-container div:first-of-type {
+    :global(.chemdoodle-container div:first-of-type) {
         display: none;
     }
 
@@ -191,5 +188,5 @@
 
     .chemdoodle-tools li {
         @apply pl-2 pt-2;
-   }
+    }
 </style>

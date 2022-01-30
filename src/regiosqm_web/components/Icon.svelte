@@ -5,7 +5,7 @@
     let tag = 'fa-' + icon
 </script>
 
-{#if tag}
+{#if icon}
     <i class="{type} {tag}" />
 {/if}
 

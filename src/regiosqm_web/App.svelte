@@ -3,16 +3,83 @@
     import Modal from './components/Modal.svelte'
     import {openModal, closeModal, closeAllModals, modals} from './stores/modals.js'
 
-    // import Editor from './components/Editor.svelte'
+    import Editor, {chemdoodleGetMol, chemdoodleSetMol} from './components/Editor.svelte'
     import Navigation from './components/Navigation.svelte'
     export let appTitle = 'Regioselectitiy App'
 
     const handleClick = () => {
-        openModal(Modal, {title: 'Alert', message: 'This is an alert'})
+        // openModal(Modal, {title: 'Alert', message: 'This is an alert'})
+        console.log(chemdoodleGetMol())
     }
     const handleClick2 = () => {
         openModal(Modal, {title: 'Alert', message: 'This another alert'}, true)
     }
+
+    /**
+     *
+     * @param query
+     * @param resultFormat
+     * @param successFunction
+     * @param failedFunction
+     */
+    const requestCactus = (query, resultFormat, successFunction, failedFunction) => {
+        // for example https://cactus.nci.nih.gov/chemical/structure/butanol/smiles
+
+        let search
+
+        search = query
+        search = search.replace('[', '%5B')
+        search = search.replace(']', '%5D')
+        search = search.replace('@', '%40')
+        search = search.replace('=', '%3D')
+        search = search.replace('#', '%23')
+
+        const url = 'https://cactus.nci.nih.gov/chemical/structure/' + search + '/' + resultFormat
+
+        // Tell user to wait
+        openModal(Modal, {title: 'Requesting from cactus', message: ''})
+
+        fetch(url)
+            .then((response) => {
+                console.log(response)
+                if (response.status == 200) {
+                    successFunction(response)
+                    response.text().then((text) => {
+                        let molecule = text
+                        openModal(Modal, {message: 'Molecule found: ' + molecule}, true)
+                    })
+                } else {
+                    failedFunction(response)
+                    openModal(Modal, {title: 'Error', message: 'Could not find the molecule on cactus'}, true)
+                }
+            })
+            .catch((error) => {
+                failedFunction(undefined)
+                console.log(error)
+                openModal(
+                    Modal,
+                    {
+                        message: 'Connection problems to cactus.nci.nih.gov. Wait a bit and try again',
+                    },
+                    true,
+                )
+                return []
+            })
+    }
+
+    const searchExample = () => {
+        let name = 'butane'
+        let format = 'smiles'
+
+        requestCactus(
+            name,
+            format,
+            () => {},
+            () => {},
+        )
+    }
+
+    // searchExample()
 </script>
 
 <svelte:head>
@@ -42,7 +109,7 @@
                 <button on:click={handleClick2}>Other Modal</button>
             </div>
             <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg sm:mr-10 relative">
-                <!-- <Editor /> -->
+                <Editor />
             </div>
         </div>
     </section>
