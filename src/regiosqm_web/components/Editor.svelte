@@ -73,9 +73,9 @@
 <div class="chemdoodle-editor p-5">
     <div class="shadow-outline rounded bg-white" style="width:500px; height:500px">
         <div class="chemdoodle-container h-full w-full" ref="chemdoodleCanvas" bind:clientWidth bind:clientHeight>
-            <!-- <canvas id={sketcherName} /> -->
-            <!-- <div class="chemdoodle-hack1 block absolute bg-white " /> -->
-            <!-- <div class="chemdoodle-hack2 " /> -->
+            <canvas id={sketcherName} />
+            <div class="chemdoodle-hack1 block absolute bg-white " />
+            <div class="chemdoodle-hack2 " />
         </div>
 
         <div class="chemdoodle-tools relative">
@@ -169,7 +169,7 @@
 </div>
 
 <style lang="postcss">
-    /* chemdoodle 
+    /* chemdoodle  */
 
     .chemdoodle-container div:first-of-type {
         display: none;
@@ -191,5 +191,5 @@
 
     .chemdoodle-tools li {
         @apply pl-2 pt-2;
-   } */
+   }
 </style>

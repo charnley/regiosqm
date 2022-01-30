@@ -35,7 +35,8 @@
         @apply bg-blue-700;
     }
 
-    a:hover img {
+    :global(a:hover img) {
         filter: invert(100%);
     }
+
 </style>
