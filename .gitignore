@@ -4,6 +4,7 @@ public/build
 # external dependencies
 public/chemdoodle
 public/fontawesome
+public/RDKit*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

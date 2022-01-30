@@ -9,7 +9,8 @@
 
     const handleClick = () => {
         // openModal(Modal, {title: 'Alert', message: 'This is an alert'})
-        console.log(chemdoodleGetMol())
+        // console.log(chemdoodleGetMol())
+        // searchExample()
     }
     const handleClick2 = () => {
         openModal(Modal, {title: 'Alert', message: 'This another alert'}, true)
@@ -67,19 +68,53 @@
             })
     }
 
+    function smilesToSdf(smi) {
+        // var mol = RDKit.Molecule.fromSmiles( smi );
+        let mol = RDKit.get_mol(smi)
+
+        mol.addHs()
+        mol.Embedmolecule3D()
+        mol.removeHs()
+        mol3d = mol.get_molblock()
+
+        return mol3d
+    }
+
+    function sdfToSmiles(sdf) {
+        // NOTE Seems like removeHs is added automatically
+        let mol = RDKit.get_mol(sdf)
+        mol.addHs()
+        var smi = mol.get_smiles()
+        return smi
+    }
+
     const searchExample = () => {
         let name = 'butane'
         let format = 'smiles'
 
-        requestCactus(
+        let molSmiles = requestCactus(
             name,
             format,
             () => {},
             () => {},
         )
+
+        let sdf = smilesToSdf(molSmiles)
+        console.log(sdf)
     }
 
     // searchExample()
+
+    // Await all modules are loaded
+    let pageReady = false
+    let RDKit
+
+    function onLoaded() {
+        initRDKitModule().then((instance) => {
+            RDKit = instance
+            pageReady = true
+        })
+    }
 </script>
 
 <svelte:head>
@@ -91,6 +126,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Fira+Sans:300,400,500" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet" />
     <link rel="stylesheet" href="/fontawesome/css/all.css" />
+    <script src="RDKit_minimal.js" on:load={onLoaded}></script>
 </svelte:head>
 
 <div class="min-h-screen">
@@ -115,7 +151,7 @@
     </section>
 </div>
 
-{#if $modals.length > 0}
+{#if $modals.length > 0 || !pageReady}
     <slot name="backdrop" />
 
     <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
