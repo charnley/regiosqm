@@ -7,15 +7,6 @@
     import Navigation from './components/Navigation.svelte'
     export let appTitle = 'Regioselectitiy App'
 
-    const handleClick = () => {
-        // openModal(Modal, {title: 'Alert', message: 'This is an alert'})
-        // console.log(chemdoodleGetMol())
-        // searchExample()
-    }
-    const handleClick2 = () => {
-        openModal(Modal, {title: 'Alert', message: 'This another alert'}, true)
-    }
-
     /**
      *
      * @param query
@@ -38,20 +29,20 @@
         const url = 'https://cactus.nci.nih.gov/chemical/structure/' + search + '/' + resultFormat
 
         // Tell user to wait
-        openModal(Modal, {title: 'Requesting from cactus', message: ''})
+        openModal(Modal, {title: 'Requesting from cactus', message: '', addCancelButton: false})
 
         fetch(url)
             .then((response) => {
-                console.log(response)
+                closeModal()
                 if (response.status == 200) {
                     successFunction(response)
-                    response.text().then((text) => {
-                        let molecule = text
-                        openModal(Modal, {message: 'Molecule found: ' + molecule}, true)
-                    })
+                    // response.text().then((text) => {
+                    //     let molecule = text
+                    //     openModal(Modal, {message: 'Molecule found: ' + molecule}, true)
+                    // })
                 } else {
                     failedFunction(response)
-                    openModal(Modal, {title: 'Error', message: 'Could not find the molecule on cactus'}, true)
+                    // openModal(Modal, {title: 'Error', message: 'Could not find the molecule on cactus'}, true)
                 }
             })
             .catch((error) => {
@@ -72,18 +63,19 @@
         // var mol = RDKit.Molecule.fromSmiles( smi );
         let mol = RDKit.get_mol(smi)
 
-        mol.addHs()
-        mol.Embedmolecule3D()
-        mol.removeHs()
-        mol3d = mol.get_molblock()
+        // mol.addHs()
+        // mol.Embedmolecule3D()
+        mol.remove_hs()
+        let mol3d = mol.get_molblock()
 
         return mol3d
     }
 
     function sdfToSmiles(sdf) {
         // NOTE Seems like removeHs is added automatically
+        // NOTE WHY IS RDKIT JAVASCRIPT IN SNAKE_CASE?!
         let mol = RDKit.get_mol(sdf)
-        mol.addHs()
+        mol.add_hs()
         var smi = mol.get_smiles()
         return smi
     }
@@ -100,7 +92,6 @@
         )
 
         let sdf = smilesToSdf(molSmiles)
-        console.log(sdf)
     }
 
     // searchExample()
@@ -114,6 +105,48 @@
             RDKit = instance
             pageReady = true
         })
+    }
+
+    // User experience
+    let userSearchQuery
+
+    const handleSearchSubmit = () => {
+        requestCactus(
+            userSearchQuery,
+            'smiles',
+            (response) => {
+                response.text().then((text) => {
+                    let smiles = text
+                    let sdf = smilesToSdf(smiles)
+                    chemdoodleSetMol(sdf)
+                })
+            },
+            () => {},
+        )
+    }
+
+    function capitalizeFirstLetter(string) {
+        // why is this not a standard javascript function
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+    }
+
+    const handleWhatClick = () => {
+        let mol = chemdoodleGetMol()
+        console.log(mol)
+        let smiles = sdfToSmiles(mol)
+        console.log(smiles)
+        requestCactus(
+            smiles,
+            'iupac_name',
+            (response) => {
+                response.text().then((text) => {
+                    console.log(text)
+                    text = capitalizeFirstLetter(text)
+                    openModal(Modal, {title: text, message: 'Molecule found on cactus'}, true)
+                })
+            },
+            () => {},
+        )
     }
 </script>
 
@@ -140,11 +173,37 @@
                     of electrophilic aromatic substitution reactions. For citation and method details, please see the
                     RegioSQM/ML papers.
                 </p>
-                <p><a href="https://fu">Read more...</a></p>
-                <button on:click={handleClick}>Open Modal</button>
-                <button on:click={handleClick2}>Other Modal</button>
+                <p>
+                    Well, at lest it will be. First POC is just interacting between chemdoodle, rdkit and cactus. E.i.
+                    find and get a name for a structure.
+                </p>
+                <div>
+                    <button
+                        class="h-10 px-4 text-white rounded-lg bg-red-500 hover:bg-red-600"
+                        on:click={handleWhatClick}>What is this Pokemon?!</button>
+                </div>
             </div>
             <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg sm:mr-10 relative">
+                <div class="container flex items-center pt-5 px-5">
+                    <div class="relative">
+                        <form on:submit|preventDefault={handleSearchSubmit}>
+                            <div class="absolute top-4 left-3">
+                                <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500" />
+                            </div>
+                            <input
+                                type="text"
+                                class="h-14 w-100 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
+                                placeholder="Search anything..."
+                                bind:value={userSearchQuery} />
+                            <div class="absolute top-2 right-2">
+                                <button
+                                    type="submit"
+                                    class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <Editor />
             </div>
         </div>
@@ -194,5 +253,9 @@ To: "opacity-0"
         right: 0;
         left: 0;
         background: rgba(0, 0, 0, 0.5);
+    }
+
+    p {
+        @apply my-5;
     }
 </style>

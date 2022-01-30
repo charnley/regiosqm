@@ -8,7 +8,7 @@
     }
 
     export function chemdoodleSetMol(mol) {
-        molcd = ChemDoodle.readMOL(mol)
+        let molcd = ChemDoodle.readMOL(mol)
         sketcher.loadMolecule(molcd)
     }
 </script>
@@ -68,15 +68,17 @@
 </svelte:head>
 
 <div class="chemdoodle-editor p-5">
-    <div class="shadow-outline rounded bg-white" style="width:500px; height:500px">
-        <div class="chemdoodle-container h-full w-full" ref="chemdoodleCanvas" bind:clientWidth bind:clientHeight>
-            <canvas id={sketcherName} />
-            <div class="chemdoodle-hack1 block absolute bg-white " />
-            <div class="chemdoodle-hack2 " />
+    <div class="shadow-outline rounded bg-white relative overflow-hidden" style="">
+        <div class=" h-96 ">
+            <div class="chemdoodle-container h-full w-full" ref="chemdoodleCanvas" bind:clientWidth bind:clientHeight>
+                <canvas id={sketcherName} />
+                <div class="chemdoodle-hack1 block absolute bg-white " />
+                <div class="chemdoodle-hack2 " />
+            </div>
         </div>
 
         <div class="chemdoodle-tools relative">
-            <ul class="flex">
+            <ul class="">
                 <li>
                     <IconBtn on:click={() => chemdoodleClick('_button_erase')} icon="eraser" tip="delete atom" />
                 </li>
@@ -103,17 +105,16 @@
                 </li>
             </ul>
 
-            <br />
-
-            <ul class="flex">
+            <ul class="">
                 {#each atoms as atom}
-                    <IconBtn on:click={() => chemdoodleClick('_button_label_' + atom.toLowerCase())}>{atom}</IconBtn>
+                    <li>
+                        <IconBtn on:click={() => chemdoodleClick('_button_label_' + atom.toLowerCase())}
+                            >{atom}</IconBtn>
+                    </li>
                 {/each}
             </ul>
 
-            <br />
-
-            <ul class="flex">
+            <ul class="">
                 <li>
                     <IconBtn on:click={() => chemdoodleClick('_button_bond_single')}>
                         <img
@@ -172,10 +173,6 @@
         display: none;
     }
 
-    .chemdoodle-container {
-        position: relative;
-    }
-
     .chemdoodle-hack1 {
         position: absolute;
         top: 10px;
@@ -186,7 +183,18 @@
         background: white;
     }
 
+    .chemdoodle-container {
+        @apply relative bg-gray-400;
+    }
+
+    .chemdoodle-tools {
+        @apply relative bg-slate-100;
+    }
+    .chemdoodle-tools ul {
+        @apply flex p-2;
+    }
+
     .chemdoodle-tools li {
-        @apply pl-2 pt-2;
+        @apply pl-2;
     }
 </style>

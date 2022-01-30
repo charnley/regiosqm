@@ -35,7 +35,14 @@
         @apply bg-blue-700;
     }
 
+    :global(a:focus img),
     :global(a:hover img) {
         filter: invert(100%);
+    }
+
+    :global(a img) {
+        width: 18px;
+        height: 18px;
+        display: inline;
     }
 </style>
