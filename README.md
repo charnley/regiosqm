@@ -30,15 +30,14 @@ culpa et culpa duis.
  - [X] Chemdoodle integration / jquery clicks
  - [X] PostCSS on generated elements
  - [X] AJAX Requests to cactus
- - [ ] Read result into chemdoodle from cactus
+ - [X] Read result into chemdoodle from cactus
  - [x] Integrate rdkit, for smiles convertion and more
  - [x] Wait/loader while all external libraries are loading
- - [ ] About page
- - [ ] Result page
  - [x] popup / modal / userfeedback
 
- - [ ] 
-
+ - [ ] Python backend server
+ - [ ] About page
+ - [ ] Result page
 
 
 ## Rdkit Note
