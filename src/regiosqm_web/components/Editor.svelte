@@ -46,7 +46,6 @@
         let btns = jquery.find(query)
         let btn = btns[0]
         btn.click()
-        return 1
     }
 
     const getEditorDimensions = () => {
