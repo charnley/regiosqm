@@ -62,9 +62,8 @@
 <svelte:window on:resize={onWindowResize} />
 
 <svelte:head>
-    <script src="/chemdoodle/ChemDoodleWeb-unpacked.js"></script>
-    <script src="/chemdoodle/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script>
-    <link rel="stylesheet" href="/chemdoodle/uis/jquery-ui-1.11.4.css" />
+    <script src="/chemdoodleweb/ChemDoodleWeb-unpacked.js"></script>
+    <script src="/chemdoodleweb/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script>
 </svelte:head>
 
 <div class="chemdoodle-editor p-5">

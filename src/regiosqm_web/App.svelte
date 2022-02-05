@@ -100,7 +100,9 @@
     let pageReady = false
     let RDKit
 
+    // TODO Read up on web workers for heavy tasks (load the full lib per worker)
     function onLoaded() {
+        // if RDKit is not undefined 
         initRDKitModule().then((instance) => {
             RDKit = instance
             pageReady = true
