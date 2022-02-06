@@ -1,6 +1,17 @@
 
 all: node_modules dependencies
 
+# Python
+
+env: ppqm.git
+	mamba env create -f ./environment.yml -p ./env --quiet
+	cd ppqm.git && ../env/bin/python -m pip install -e .
+
+ppqm.git:
+	git clone https://github.com/ppqm/ppqm ppqm.git
+
+# Node
+
 node_modules:
 	npm install
 
@@ -18,8 +29,11 @@ public/fontawesome:
 public/rdkit:
 	bash scripts/setup_rdkit.sh
 
-dev:
+node-dev:
 	npm run dev
 
-format:
+node-format:
 	npm run pretty
+
+# Development
+
