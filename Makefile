@@ -1,5 +1,5 @@
 
-all: node_modules dependencies
+all: node_modules node-dependencies node-build env
 
 # Python
 
@@ -15,10 +15,13 @@ ppqm.git:
 node_modules:
 	npm install
 
-build:
+node-build: src/regiosqm_api/public
 	npm run build
 
-dependencies: public/chemdoodleweb public/fontawesome public/rdkit
+src/regiosqm_api/public:
+	cd src/regiosqm_api && ln -s ../../public public
+
+node-dependencies: public/chemdoodleweb public/fontawesome public/rdkit
 
 public/chemdoodleweb:
 	bash scripts/setup_chemdoodle.sh
