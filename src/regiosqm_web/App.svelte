@@ -2,6 +2,7 @@
     import ModalBase from './components/ModalBase.svelte'
     import Modal from './components/Modal.svelte'
     import {openModal, closeModal, closeAllModals, modals} from './stores/modals.js'
+    import {rdkit, jquery, chemdoodle} from './stores/libs.js'
 
     import Editor, {chemdoodleGetMol, chemdoodleSetMol} from './components/Editor.svelte'
     import Navigation from './components/Navigation.svelte'
@@ -61,7 +62,7 @@
 
     function smilesToSdf(smi) {
         // var mol = RDKit.Molecule.fromSmiles( smi );
-        let mol = RDKit.get_mol(smi)
+        let mol = $rdkit.get_mol(smi)
 
         // mol.addHs()
         // mol.Embedmolecule3D()
@@ -74,39 +75,38 @@
     function sdfToSmiles(sdf) {
         // NOTE Seems like removeHs is added automatically
         // NOTE WHY IS RDKIT JAVASCRIPT IN SNAKE_CASE?!
-        let mol = RDKit.get_mol(sdf)
+        let mol = $rdkit.get_mol(sdf)
         mol.add_hs()
         var smi = mol.get_smiles()
         return smi
     }
 
-    const searchExample = () => {
-        let name = 'butane'
-        let format = 'smiles'
 
-        let molSmiles = requestCactus(
-            name,
-            format,
-            () => {},
-            () => {},
-        )
-
-        let sdf = smilesToSdf(molSmiles)
-    }
-
-    // searchExample()
-
-    // Await all modules are loaded
-    let pageReady = false
-    let RDKit
-
-    // TODO Read up on web workers for heavy tasks (load the full lib per worker)
-    function onLoaded() {
+    const onRdkitLoaded = () => {
         // if RDKit is not undefined 
         initRDKitModule().then((instance) => {
-            RDKit = instance
-            pageReady = true
+            rdkit.update(() => instance)
         })
+    }
+
+    const onChemdoodleLoaded = () => {
+        isChemdoodleCoreLoaded = true
+    }
+
+    const onChemdoodleLoaded2 = () => {
+        chemdoodle.update(() => ChemDoodle)
+        jquery.update(() => ChemDoodle.lib.jQuery)
+    }
+
+    const checkAllGlobals = () => {
+        // Check rdkit
+        // Check chemdoodle
+
+        if ($rdkit == null ) return false
+        if ($jquery == null ) return false
+        if ($chemdoodle == null ) return false
+
+        pageReady = true
     }
 
     // User experience
@@ -127,7 +127,7 @@
         )
     }
 
-    function capitalizeFirstLetter(string) {
+    const capitalizeFirstLetter = (string) => {
         // why is this not a standard javascript function
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
     }
@@ -142,7 +142,6 @@
             'iupac_name',
             (response) => {
                 response.text().then((text) => {
-                    console.log(text)
                     text = capitalizeFirstLetter(text)
                     openModal(Modal, {title: text, message: 'Molecule found on cactus'}, true)
                 })
@@ -150,6 +149,16 @@
             () => {},
         )
     }
+
+    // Interactive
+    // Await all modules are loaded
+    let pageReady = false
+    let isChemdoodleCoreLoaded = false
+
+    $: $rdkit, checkAllGlobals()
+    $: $jquery, checkAllGlobals()
+    $: $chemdoodle, checkAllGlobals()
+
 </script>
 
 <svelte:head>
@@ -161,7 +170,11 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Fira+Sans:300,400,500" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet" />
     <link rel="stylesheet" href="/fontawesome/css/all.css" />
-    <script src="RDKit_minimal.js" on:load={onLoaded}></script>
+    <script src="/rdkit/RDKit_minimal.js" on:load={onRdkitLoaded}></script>
+    <script src="/chemdoodleweb/ChemDoodleWeb-unpacked.js" on:load={onChemdoodleLoaded}></script>
+    {#if isChemdoodleCoreLoaded}
+       <script src="/chemdoodleweb/ChemDoodleWeb-uis-unpacked.js" on:load={onChemdoodleLoaded2}></script>
+    {/if}
 </svelte:head>
 
 <div class="min-h-screen">

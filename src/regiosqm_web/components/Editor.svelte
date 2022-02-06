@@ -1,19 +1,20 @@
 <script context="module">
     let sketcher
 
-    export function chemdoodleGetMol() {
+    export const chemdoodleGetMol = () => {
         let mol = sketcher.getMolecule()
         let molFile = ChemDoodle.writeMOL(mol)
         return molFile
     }
 
-    export function chemdoodleSetMol(mol) {
+    export const chemdoodleSetMol = (mol) => {
         let molcd = ChemDoodle.readMOL(mol)
         sketcher.loadMolecule(molcd)
     }
 </script>
 
 <script>
+    import {jquery, chemdoodle} from '../stores/libs.js'
     import IconBtn from './IconBtn.svelte'
 
     export let sketcherName = 'sketcherSingle'
@@ -22,13 +23,9 @@
     let clientWidth
     let clientHeight
 
-    let jquery
-    // let sketcher
-
     const initializeChemdoodle = () => {
-        sketcher = new ChemDoodle.SketcherCanvas(sketcherName, 100, 100, {useServices: false, oneMolecule: true})
+        sketcher = new $chemdoodle.SketcherCanvas(sketcherName, 100, 100, {useServices: false, oneMolecule: true})
         chemdoodleResize(sketcher, [500, 500])
-        jquery = ChemDoodle.lib.jQuery
         onWindowResize()
     }
 
@@ -43,7 +40,7 @@
 
     const chemdoodleClick = (btnId) => {
         let query = btnId.includes('#') ? btnId : '#' + sketcherName + btnId
-        let btns = jquery.find(query)
+        let btns = $jquery.find(query)
         let btn = btns[0]
         btn.click()
     }
@@ -56,14 +53,12 @@
         chemdoodleResize(sketcher, getEditorDimensions())
         chemdoodleClick('_button_center')
     }
+
+    // Wait for chemdoodle
+    $: $chemdoodle && initializeChemdoodle()
 </script>
 
 <svelte:window on:resize={onWindowResize} />
-
-<svelte:head>
-    <script src="/chemdoodleweb/ChemDoodleWeb-unpacked.js"></script>
-    <script src="/chemdoodleweb/ChemDoodleWeb-uis-unpacked.js" on:load={initializeChemdoodle}></script>
-</svelte:head>
 
 <div class="chemdoodle-editor p-5">
     <div class="shadow-outline rounded bg-white relative overflow-hidden" style="">

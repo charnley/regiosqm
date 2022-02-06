@@ -8,6 +8,3 @@
 {#if icon}
     <i class="{type} {tag}" />
 {/if}
-
-<style>
-</style>

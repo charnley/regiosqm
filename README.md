@@ -39,6 +39,8 @@ culpa et culpa duis.
  - [ ] About page
  - [ ] Result page
 
+ - [ ] Read up on web workers for heavy tasks (load the full lib per worker)
+
 
 ## Rdkit Note
 
