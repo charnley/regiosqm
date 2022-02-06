@@ -12,6 +12,9 @@ duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt
 velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est
 culpa et culpa duis.
 
+## Dependencies
+
+You need to install conda and Node
 
 ## Setup
 
