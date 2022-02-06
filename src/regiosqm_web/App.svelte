@@ -81,9 +81,8 @@
         return smi
     }
 
-
     const onRdkitLoaded = () => {
-        // if RDKit is not undefined 
+        // if RDKit is not undefined
         initRDKitModule().then((instance) => {
             rdkit.update(() => instance)
         })
@@ -102,9 +101,9 @@
         // Check rdkit
         // Check chemdoodle
 
-        if ($rdkit == null ) return false
-        if ($jquery == null ) return false
-        if ($chemdoodle == null ) return false
+        if ($rdkit == null) return false
+        if ($jquery == null) return false
+        if ($chemdoodle == null) return false
 
         pageReady = true
     }
@@ -158,7 +157,6 @@
     $: $rdkit, checkAllGlobals()
     $: $jquery, checkAllGlobals()
     $: $chemdoodle, checkAllGlobals()
-
 </script>
 
 <svelte:head>
@@ -173,7 +171,7 @@
     <script src="/rdkit/RDKit_minimal.js" on:load={onRdkitLoaded}></script>
     <script src="/chemdoodleweb/ChemDoodleWeb-unpacked.js" on:load={onChemdoodleLoaded}></script>
     {#if isChemdoodleCoreLoaded}
-       <script src="/chemdoodleweb/ChemDoodleWeb-uis-unpacked.js" on:load={onChemdoodleLoaded2}></script>
+        <script src="/chemdoodleweb/ChemDoodleWeb-uis-unpacked.js" on:load={onChemdoodleLoaded2}></script>
     {/if}
 </svelte:head>
 
