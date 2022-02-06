@@ -6,6 +6,7 @@ all: node_modules node-dependencies node-build env
 env: ppqm.git
 	mamba env create -f ./environment.yml -p ./env --quiet
 	cd ppqm.git && ../env/bin/python -m pip install -e .
+	./env/bin/python -m pip install -e .
 
 ppqm.git:
 	git clone https://github.com/ppqm/ppqm ppqm.git
@@ -39,3 +40,11 @@ node-format:
 	npm run pretty
 
 # Development
+
+start_flask:
+	python -m python_api
+
+# Interaction
+
+start_jupyter:
+	jupyter lab
