@@ -11,5 +11,16 @@ dependencies:
   - rmsd
   - scipy
   - tqdm
+  - pandas
+  - xtb
 # dev
   - pre-commit
+  - pytest
+  - pytest-cov
+# interative study (notebooks)
+  - ipywidgets
+  - jupyter
+  - jupyterlab
+  - jupytext
+  - matplotlib
+  - nglview

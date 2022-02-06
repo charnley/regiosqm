@@ -15,15 +15,41 @@ culpa et culpa duis.
 
 ## Setup
 
-### Frontend
+As per all other repo's I play with, there is a Makefile for quick setup. Just run
+
+    make
+
+and it will setup all the dependencies and run initial build. The following
+sections are more in depth.
+
+### Setup Svelite frontend
+
+The JavaScript is a single-page-application (SPA), which means you just need to
+compile the JavaScript once and make it avaiable to the user.
 
     npm install
-    npm run dev
+    npm run build
 
-### Backend
+### Setup Python backend
+
+The backend is based on `ppqm` and `rdkit`.
 
     conda env create -p ./env
-    python -m regiosqm_api --start
+
+and then you need to setup `ppqm`, which does not have a conda package as this
+writing. Clone the repo down and install it with pip (in the proper environment).
+
+    git clone https://github.com/ppqm/ppqm ppqm.git
+    cd ppqm.git
+    ../env/bin/python -m pip install -e .
+
+## Development
+
+You would want to run `watch` with npm, so it builds
+
+## Deployment
+
+- [ ] TODO guide. For ngix and apache2
 
 ## TODO
 
