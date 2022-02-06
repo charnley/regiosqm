@@ -6,7 +6,7 @@ dependencies:
   - python=3.9
   - flask
   - numpy
-  - boost-cpp==1.72.0 # rdkit bug https://github.com/rdkit/rdkit/issues/4987
+  - boost-cpp=1.74.0=h359cf19_5 # rdkit bug https://github.com/rdkit/rdkit/issues/4987
   - rdkit
   - rmsd
   - scipy

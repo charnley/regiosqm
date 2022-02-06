@@ -1,5 +1,5 @@
 
-all: node_modules node-dependencies node-build env
+all: node_modules node-dependencies env
 
 # Python
 

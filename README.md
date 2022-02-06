@@ -12,6 +12,12 @@ duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt
 velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est
 culpa et culpa duis.
 
+    - https://doi.org/10.1039/C7SC04156J
+    - https://doi.org/10.1186/s13321-021-00490-7
+    - https://github.com/jensengroup/regiosqm
+    - https://github.com/NicolaiRee/RegioSQM20
+
+
 ## Usage
 
 Can be used as
