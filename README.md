@@ -36,6 +36,7 @@ culpa et culpa duis.
  - [x] popup / modal / userfeedback
 
  - [ ] Python backend server
+ - [X] Use Flask to serve Svelte Single page application
  - [ ] About page
  - [ ] Result page
 
