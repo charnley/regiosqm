@@ -39,12 +39,12 @@ node-dev:
 node-format:
 	npm run pretty
 
-# Development
+# run service
 
 start_flask:
-	python -m python_api
+	python -m regiosqm_api
 
-# Interaction
+# interaction
 
 start_jupyter:
 	jupyter lab
