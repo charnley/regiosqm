@@ -74,4 +74,3 @@ JavaScript functions on a Mol obj
     get_v3Kmolblock: ƒ Mol$get_v3Kmolblock()
     is_valid: ƒ Mol$is_valid()
     remove_hs: ƒ Mol$remove_hs()
-
