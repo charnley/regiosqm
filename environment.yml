@@ -11,3 +11,5 @@ dependencies:
   - rmsd
   - scipy
   - tqdm
+# dev
+  - pre-commit
