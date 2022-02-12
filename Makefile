@@ -22,7 +22,7 @@ node-build: src/regiosqm_api/public
 src/regiosqm_api/public:
 	cd src/regiosqm_api && ln -s ../../public public
 
-node-dependencies: public/chemdoodleweb public/fontawesome public/rdkit
+node-dependencies: public/chemdoodleweb public/fontawesome public/rdkit public/fonts
 
 public/chemdoodleweb:
 	bash scripts/setup_chemdoodle.sh
@@ -32,6 +32,13 @@ public/fontawesome:
 
 public/rdkit:
 	bash scripts/setup_rdkit.sh
+
+public/fonts: scripts/download_google_font.sh
+	mkdir public/fonts
+	cd public/fonts &&  bash ../../scripts/download_google_font.sh https://fonts.googleapis.com/css?family=Nunito:400,700,800
+
+scripts/download_google_font.sh:
+	bash scripts/setup_googlefonts.sh
 
 node-dev:
 	npm run dev

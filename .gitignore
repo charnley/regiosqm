@@ -4,13 +4,14 @@ ppqm.git
 
 # node output
 public/build
-public/font
 src/regiosqm_api/public
 
 # external dependencies
 public/chemdoodleweb
 public/fontawesome
 public/rdkit
+public/font
+scripts/download_google_font.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
