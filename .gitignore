@@ -10,7 +10,7 @@ src/regiosqm_api/public
 public/chemdoodleweb
 public/fontawesome
 public/rdkit
-public/font
+public/fonts
 scripts/download_google_font.sh
 
 # Byte-compiled / optimized / DLL files
