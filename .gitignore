@@ -4,6 +4,7 @@ ppqm.git
 
 # node output
 public/build
+public/font
 src/regiosqm_api/public
 
 # external dependencies
