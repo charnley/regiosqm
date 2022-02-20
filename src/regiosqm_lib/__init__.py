@@ -1,1 +1,4 @@
 from regiosqm_lib import conformers, tautomers
+from regiosqm_lib.conformers import generate_conformers
+from regiosqm_lib.reactions import generate_protonations
+from regiosqm_lib.tautomers import generate_tautomers

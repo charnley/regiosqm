@@ -14,7 +14,7 @@ default_xtb_options = {
 }
 
 
-def find_tautomers(mol: Mol, sort=True) -> List[Mol]:
+def generate_tautomers(mol: Mol, sort=True) -> List[Mol]:
     """Find tautomers for a molobj"""
     # Find canonical taut
     enumerator = rdMolStandardize.TautomerEnumerator()

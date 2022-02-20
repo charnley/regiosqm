@@ -14,12 +14,16 @@ def generate_conformers(
     maximum_conformers=20,
     per_rotation_conformers=3,
     random_seed: int = -1,
+    inplace=False,
 ):
     """Generate conformers with rdkit"""
 
-    rdkit_mol = Chem.AddHs(mol)
+    if not inplace:
+        mol = chembridge.copy_molobj(mol)
 
-    rot_bond = rdMolDescriptors.CalcNumRotatableBonds(rdkit_mol)
+    mol = Chem.AddHs(mol)
+
+    rot_bond = rdMolDescriptors.CalcNumRotatableBonds(mol)
     confs = min(minimum_conformers + per_rotation_conformers * rot_bond, maximum_conformers)
 
     AllChem.EmbedMultipleConfs(
