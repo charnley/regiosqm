@@ -23,14 +23,14 @@ import regiosqm_lib
 _logger = logging.getLogger(__name__)
 
 calculation_opt1 = {
-    "gfnff": None,
+    "gfn": "ff",
     "gbsa": "Methanol",
     "opt": None,
     "uhf": 0,
 }
 
 calculation_opt2 = {
-    "gfn1": None,
+    "gfn": 1,
     "gbsa": "Methanol",
     "opt": None,
     "uhf": 0,
