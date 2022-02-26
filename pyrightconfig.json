@@ -1,0 +1,19 @@
+{
+  "include": [
+    "src"
+  ],
+
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__"
+  ],
+
+  "ignore": [
+    "src/regiosqm_web"
+  ],
+
+  "venv": "env367",
+
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false
+}
