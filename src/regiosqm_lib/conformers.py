@@ -10,14 +10,25 @@ _logger = logging.getLogger(__name__)
 
 def generate_conformers(
     mol: Mol,
-    minimum_conformers=1,
-    maximum_conformers=20,
-    per_rotation_conformers=3,
+    minimum_conformers: int = 1,
+    maximum_conformers: int = 20,
+    per_rotation_conformers: int = 3,
     random_seed: int = -1,
-    inplace=False,
-):
-    """Generate conformers with rdkit"""
+    inplace: bool = False,
+) -> Mol:
+    """
 
+    Args:
+        mol (Mol): Molecule without conformers
+        inplace (bool): Embed conformers inplace on mol
+        minimum_conformers (int):
+        maximum_conformers (int):
+        per_rotation_conformers (int):
+        random_seed (int):
+
+    Returns:
+        mol (Mol): Molecule with conformers
+    """
     if not inplace:
         mol = chembridge.copy_molobj(mol)
 
