@@ -26,14 +26,17 @@ def generate_conformers(
     rot_bond = rdMolDescriptors.CalcNumRotatableBonds(mol)
     confs = min(minimum_conformers + per_rotation_conformers * rot_bond, maximum_conformers)
 
+    # AllChem.EmbedMultipleConfs(
+    #     mol,
+    #     numConfs=confs,
+    #     clearConfs=True,
+    #     useExpTorsionAnglePrefs=True,
+    #     useBasicKnowledge=True,
+    #     ETversion=2,
+    #     randomSeed=random_seed,
+    # )
     AllChem.EmbedMultipleConfs(
-        mol,
-        numConfs=confs,
-        clearConfs=True,
-        useExpTorsionAnglePrefs=True,
-        useBasicKnowledge=True,
-        ETversion=2,
-        randomSeed=random_seed,
+        mol, numConfs=confs, useExpTorsionAnglePrefs=True, useBasicKnowledge=True
     )
 
     return mol

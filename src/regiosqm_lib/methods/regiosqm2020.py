@@ -66,7 +66,7 @@ def predict_regioselective_dataframe(mol: Mol, xtb_options={}) -> pd.DataFrame:
 
 
 def predict_regioselective_sites(
-    mol: Mol, energy_cut1=1.0, energy_cut2=3.0, xtb_options={}, pdf_protomers=None
+    mol: Mol, pdf_protomers: pd.DataFrame, energy_cut1=1.0, energy_cut2=3.0, xtb_options={}
 ) -> Optional[Mol]:
     """
     Return molobj with annotated atoms
