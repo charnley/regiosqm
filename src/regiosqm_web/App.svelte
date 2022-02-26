@@ -1,7 +1,7 @@
 <script>
     import ModalBase from './components/ModalBase.svelte'
     import Modal from './components/Modal.svelte'
-    import {openModal, closeModal, closeAllModals, modals} from './stores/modals.js'
+    import {openModal, closeModal, modals} from './stores/modals.js'
     import {rdkit, jquery, chemdoodle} from './stores/libs.js'
 
     import Editor, {chemdoodleGetMol, chemdoodleSetMol} from './components/Editor.svelte'
@@ -60,6 +60,9 @@
             })
     }
 
+    /**
+     * @param {str} smi
+     */
     function smilesToSdf(smi) {
         // var mol = RDKit.Molecule.fromSmiles( smi );
         let mol = $rdkit.get_mol(smi)
@@ -165,8 +168,7 @@
     <meta name="google" content="notranslate" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Fira+Sans:300,400,500" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet" />
+    <link href="/fonts/font.css" rel="stylesheet" />
     <link rel="stylesheet" href="/fontawesome/css/all.css" />
     <script src="/rdkit/RDKit_minimal.js" on:load={onRdkitLoaded}></script>
     <script src="/chemdoodleweb/ChemDoodleWeb-unpacked.js" on:load={onChemdoodleLoaded}></script>
@@ -193,7 +195,7 @@
                 <div>
                     <button
                         class="h-10 px-4 text-white rounded-lg bg-red-500 hover:bg-red-600"
-                        on:click={handleWhatClick}>What is this Pokemon?!</button>
+                        on:click={handleWhatClick}> What is this Pokemon?!</button>
                 </div>
             </div>
             <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg sm:mr-10 relative">
@@ -248,6 +250,7 @@ To: "opacity-0"
         </div>
     </div>
 {/if}
+
 
 <style global lang="postcss">
     @tailwind base;
