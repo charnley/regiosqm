@@ -1,5 +1,5 @@
 module.exports = {
-    content: ['./public/index.html', './src/**/*.svelte'],
+    content: ['./public/index.html', './src/**/*.svelte', 'src/regiosqm_web/globals.css'],
     theme: {
         extend: {},
         fontFamily: {
