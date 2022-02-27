@@ -70,20 +70,31 @@ You would want to run `watch` with npm, so it builds
 
 ## TODO
 
- - [X] Chemdoodle integration / jquery clicks
- - [X] PostCSS on generated elements
- - [X] AJAX Requests to cactus
- - [X] Read result into chemdoodle from cactus
- - [x] Integrate rdkit, for smiles convertion and more
- - [x] Wait/loader while all external libraries are loading
- - [x] popup / modal / userfeedback
+- [X] Chemdoodle integration / jquery clicks
+- [X] PostCSS on generated elements
+- [X] AJAX Requests to cactus
+- [X] Read result into chemdoodle from cactus
+- [x] Integrate rdkit, for smiles convertion and more
+- [x] Wait/loader while all external libraries are loading
+- [x] popup / modal / userfeedback
+- [X] Setup storybook for Svelte components (with global tailwind and local fonts)
 
- - [ ] Python backend server
- - [X] Use Flask to serve Svelte Single page application
- - [ ] About page
- - [ ] Result page
+- [X] Python3 and ppqm implementation of RegioSQM2020
+- [X] Python3 and ppqm implementation of RegioSQM2018
+- [ ] Interface to RegioML
 
- - [ ] Read up on web workers for heavy tasks (load the full lib per worker)
+- [X] Python Flask server
+- [X] Use Flask to serve Svelte Single page application
+- [X] Flask SQLAlchemy interface
+- [ ] REST API For submitting
+- [ ] REST API For checking status
+- [ ] REST API For fetching results
+- [ ] Slurm-like queuing system interface
+
+- [ ] About page
+- [ ] Result page
+
+- [ ] Read up on web workers for heavy tasks (load the full lib per worker)
 
 
 ## Rdkit Note
