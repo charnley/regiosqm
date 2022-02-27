@@ -90,6 +90,7 @@ You would want to run `watch` with npm, so it builds
 - [ ] REST API For checking status
 - [ ] REST API For fetching results
 - [ ] Slurm-like queuing system interface
+- [ ] Only allow API requests from active frontend (SSO Cookie?)
 
 - [ ] About page
 - [ ] Result page
