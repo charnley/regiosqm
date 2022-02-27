@@ -1,6 +1,10 @@
+# not sure
+package-lock.json
+
 # env
 env
 ppqm.git
+
 
 # node output
 public/build
