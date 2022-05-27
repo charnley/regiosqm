@@ -6,7 +6,7 @@
         "build": "rollup -c",
         "dev": "rollup -c -w",
         "start": "sirv public --no-clear",
-        "pretty": "prettier --write \"./**/*.{js,jsx,json,svelte}\"",
+        "format": "prettier --write \"./**/*.{js,jsx,json,svelte}\" --ignore-path .gitignore",
         "test": "jest --watchAll",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook"
@@ -14,13 +14,13 @@
     "devDependencies": {
         "@rollup/plugin-commonjs": "^17.0.0",
         "@rollup/plugin-node-resolve": "^11.0.0",
-    "@storybook/addon-actions": "^6.4.0",
-    "@storybook/addon-essentials": "^6.4.0",
-    "@storybook/addon-interactions": "^6.4.0",
-    "@storybook/addon-links": "^6.4.0",
-    "@storybook/addon-svelte-csf": "^1.1.0",
-    "@storybook/svelte": "^6.4.0",
-    "@storybook/testing-library": "^0.0.7",
+        "@storybook/addon-actions": "^6.4.0",
+        "@storybook/addon-essentials": "^6.4.0",
+        "@storybook/addon-interactions": "^6.4.0",
+        "@storybook/addon-links": "^6.4.0",
+        "@storybook/addon-svelte-csf": "^1.1.0",
+        "@storybook/svelte": "^6.4.0",
+        "@storybook/testing-library": "^0.0.7",
         "autoprefixer": "^10.4.2",
         "postcss": "^8.4.5",
         "prettier": "^2.5.1",
@@ -35,6 +35,5 @@
         "tailwindcss": "^3.0.18",
         "sirv-cli": "^2.0.0"
     },
-    "dependencies": {
-    }
+    "dependencies": {}
 }

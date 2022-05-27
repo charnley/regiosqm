@@ -44,7 +44,7 @@ node-dev:
 	npm run dev
 
 node-format:
-	npm run pretty
+	npm run format
 
 # run service
 

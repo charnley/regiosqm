@@ -195,7 +195,8 @@
                 <div>
                     <button
                         class="h-10 px-4 text-white rounded-lg bg-red-500 hover:bg-red-600"
-                        on:click={handleWhatClick}> What is this Pokemon?!</button>
+                        on:click={handleWhatClick}>
+                        What is this Pokemon?!</button>
                 </div>
             </div>
             <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg sm:mr-10 relative">
@@ -250,7 +251,6 @@ To: "opacity-0"
         </div>
     </div>
 {/if}
-
 
 <style global lang="postcss">
     @tailwind base;
