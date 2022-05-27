@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python=3.9
   - flask
+  - flask-cors
   - numpy
   - boost-cpp=1.74.0=h359cf19_5 # rdkit bug https://github.com/rdkit/rdkit/issues/4987
   - rdkit

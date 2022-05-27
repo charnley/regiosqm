@@ -1,6 +1,7 @@
 import logging
 
 from flask import Flask, _app_ctx_stack, jsonify
+from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
 
 from regiosqm_api import database, models
@@ -10,7 +11,13 @@ logging.basicConfig(level=logging.DEBUG)
 _logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder="public", static_url_path="/public")
+CORS(app)
+
 app.session = scoped_session(database.SessionLocal, _app_ctx_stack.__ident_func__)
+app.config["CORES_ORGIN"] = [
+    "http://regiosqm.org",
+    "http://localhost:*",
+]  # TODO Get origin from configuration ini/yaml
 
 
 @app.route("/heartbeat")
