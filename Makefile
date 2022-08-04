@@ -9,7 +9,7 @@ env: ppqm.git
 	./env/bin/python -m pip install -e .
 
 ppqm.git:
-	git clone https://github.com/ppqm/ppqm ppqm.git
+	git clone https://github.com/ppqm/ppqm ppqm.git --depth 1
 
 # Node
 
@@ -35,7 +35,7 @@ public/rdkit:
 
 public/fonts: scripts/download_google_font.sh
 	mkdir public/fonts
-	cd public/fonts &&  bash ../../scripts/download_google_font.sh https://fonts.googleapis.com/css?family=Nunito:400,700,800
+	cd public/fonts && bash ../../scripts/download_google_font.sh https://fonts.googleapis.com/css?family=Nunito:400,700,800
 
 scripts/download_google_font.sh:
 	bash scripts/setup_googlefonts.sh
