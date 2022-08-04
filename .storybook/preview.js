@@ -1,5 +1,6 @@
 import '../src/regiosqm_web/globals.css'
 import '../public/fonts/font.css'
+import '../public/fontawesome/css/all.css'
 
 export const parameters = {
     actions: {argTypesRegex: '^on[A-Z].*'},

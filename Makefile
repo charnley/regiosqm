@@ -56,7 +56,10 @@ format: node-format py-format
 start_flask:
 	python -m regiosqm_api
 
-# interaction
+# development
+
+start_storybook:
+	npm run storybook
 
 start_jupyter:
 	jupyter lab

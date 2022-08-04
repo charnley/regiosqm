@@ -8,40 +8,26 @@
     component={IconBtn}
     argTypes={{
         label: {control: 'text'},
+        tip: {control: 'text'},
+        icon: {control: 'text'},
         primary: {control: 'boolean'},
-        backgroundColor: {control: 'color'},
-        size: {
-            control: {type: 'select', options: ['small', 'medium', 'large']},
-        },
         onClick: {action: 'onClick'},
     }} />
 
 <Template let:args>
-    <IconBtn icon="atom">{args.label}</IconBtn>
+    <IconBtn tip={args.tip} icon={args.icon}>{args.label}</IconBtn>
 </Template>
 
 <Story
-    name="Primary"
+    name="Carbon Atom"
     args={{
-        primary: true,
-        label: 'Button',
+        label: 'C',
     }} />
 
 <Story
-    name="Secondary"
+    name="Delete example"
     args={{
-        label: 'Button',
-    }} />
-<Story
-    name="Large"
-    args={{
-        size: 'large',
-        label: 'Button',
-    }} />
-
-<Story
-    name="Small"
-    args={{
-        size: 'small',
-        label: 'Button',
+        label: "",
+        icon: 'search-minus',
+        tip: 'zoom out',
     }} />
