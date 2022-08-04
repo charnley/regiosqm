@@ -1,7 +1,9 @@
 import logging
+from functools import wraps
 
-from flask import Flask, _app_ctx_stack, jsonify
-from flask_cors import CORS
+import httpagentparser
+from flask import Flask, _app_ctx_stack, jsonify, request
+from flask.helpers import make_response
 from sqlalchemy.orm import scoped_session
 
 from regiosqm_api import database, models
@@ -11,26 +13,81 @@ logging.basicConfig(level=logging.DEBUG)
 _logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder="public", static_url_path="/public")
-CORS(app)
-
-app.session = scoped_session(database.SessionLocal, _app_ctx_stack.__ident_func__)
-app.config["CORES_ORGIN"] = [
-    "http://regiosqm.org",
-    "http://localhost:*",
-]  # TODO Get origin from configuration ini/yaml
+app.session = scoped_session(database.SessionLocal, scopefunc=_app_ctx_stack)
 
 
-@app.route("/heartbeat")
+def browser_required(f):
+    """Security by obscurity"""
+
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        browsers = [
+            "camino",
+            "chrome",
+            "firefox",
+            "galeon",
+            "kmeleon",
+            "konqueror",
+            "links",
+            "lynx",
+            "msie",
+            "msn",
+            "netscape",
+            "opera",
+            "safari",
+            "seamonkey",
+            "webkit",
+        ]
+
+        headeragent = request.headers.get("User-Agent")
+        agent = httpagentparser.detect(headeragent)
+
+        _logger.debug(f"agent: {agent}")
+
+        try:
+            agent_browser = agent["browser"]["name"]
+        except KeyError:
+            agent_browser = None
+
+        if agent_browser is None and agent["browser"]["name"].lower() not in browsers:
+            return make_response(
+                jsonify({"message": "Invalid token! Use browser interface only"}), 401
+            )
+
+        return f(*args, **kwargs)
+
+    return decorator
+
+
+@app.route("/status")
+@browser_required
 def heartbeat():
-    return jsonify({"status": "healthy"})
+
+    headeragent = request.headers.get("User-Agent")
+    agent = httpagentparser.detect(headeragent)
+
+    try:
+        agent_browser = agent["browser"]["name"]
+    except KeyError:
+        agent_browser = None
+
+    return jsonify(
+        {
+            "status": "healthy",
+            "user-agent": str(headeragent),
+            "browser": str(agent_browser),
+        }
+    )
 
 
 @app.route("/submit")
+@browser_required
 def work():
     return jsonify({"status": "healthy"})
 
 
 @app.route("/records")
+@browser_required
 def get_records():
     records = app.session.query(models.Prediction).all()
     _logger.info(len(records))
