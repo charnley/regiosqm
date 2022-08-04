@@ -1,28 +1,28 @@
 name: regiosqm-app
 channels:
-  - conda-forge
-  - defaults
+    - conda-forge
+    - defaults
 dependencies:
-  - python=3.9
-  - flask
-  - flask-cors
-  - numpy
-  - boost-cpp=1.74.0=h359cf19_5 # rdkit bug https://github.com/rdkit/rdkit/issues/4987
-  - rdkit
-  - rmsd
-  - scipy
-  - tqdm
-  - pandas
-  - xtb
-# dev
-  - mypy
-  - pre-commit
-  - pytest
-  - pytest-cov
-# interative study (notebooks)
-  - ipywidgets
-  - jupyter
-  - jupyterlab
-  - jupytext
-  - matplotlib
-  - nglview
+    - python=3.9
+    - flask
+    - flask-cors
+    - numpy
+    - boost-cpp=1.74.0=h359cf19_5 # rdkit bug https://github.com/rdkit/rdkit/issues/4987
+    - rdkit
+    - rmsd
+    - scipy
+    - tqdm
+    - pandas
+    - xtb
+    # dev
+    - mypy
+    - pre-commit
+    - pytest
+    - pytest-cov
+    # interative study (notebooks)
+    - ipywidgets
+    - jupyter
+    - jupyterlab
+    - jupytext
+    - matplotlib
+    - nglview
