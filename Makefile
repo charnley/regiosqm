@@ -46,6 +46,11 @@ node-dev:
 node-format:
 	npm run format
 
+py-format:
+	pre-commit run --all-files
+
+format: node-format py-format
+
 # run service
 
 start_flask:
