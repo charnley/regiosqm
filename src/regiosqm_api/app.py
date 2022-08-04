@@ -49,7 +49,7 @@ def browser_required(f):
         except KeyError:
             agent_browser = None
 
-        if agent_browser is None and agent["browser"]["name"].lower() not in browsers:
+        if agent_browser is None or agent_browser not in browsers:
             return make_response(
                 jsonify({"message": "Invalid token! Use browser interface only"}), 401
             )
@@ -100,6 +100,7 @@ def get_records():
 @app.route("/<path:path>")
 def catch_all(path):
     if path == "":
+
         path = "index.html"
     return app.send_static_file(path)
 
@@ -111,6 +112,7 @@ def main(debug=False):
 
 @app.teardown_appcontext
 def remove_session(*args, **kwargs):
+
     app.session.remove()
 
 
