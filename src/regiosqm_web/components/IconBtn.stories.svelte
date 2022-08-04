@@ -27,7 +27,7 @@
 <Story
     name="Delete example"
     args={{
-        label: "",
+        label: '',
         icon: 'search-minus',
         tip: 'zoom out',
     }} />

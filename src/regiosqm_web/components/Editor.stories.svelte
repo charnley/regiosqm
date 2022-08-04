@@ -21,7 +21,6 @@
     }
 
     const checkAllGlobals = () => {
-
         if ($rdkit == null) return false
         if ($jquery == null) return false
         if ($chemdoodle == null) return false
@@ -35,7 +34,6 @@
     $: $rdkit, checkAllGlobals()
     $: $jquery, checkAllGlobals()
     $: $chemdoodle, checkAllGlobals()
-
 </script>
 
 <svelte:head>
@@ -45,14 +43,10 @@
         <script src="/chemdoodleweb/ChemDoodleWeb-uis-unpacked.js" on:load={onChemdoodleLoaded2}></script>
     {/if}
 </svelte:head>
-<Meta
-    title="2D Editor"
-    component={Editor}
-    />
+<Meta title="2D Editor" component={Editor} />
 
 <Template let:args>
     <Editor />
 </Template>
 
-<Story
-    name="Primary" />
+<Story name="Primary" />
