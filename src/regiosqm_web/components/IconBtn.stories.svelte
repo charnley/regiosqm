@@ -4,7 +4,7 @@
 </script>
 
 <Meta
-    title="Example/Button"
+    title="Button"
     component={IconBtn}
     argTypes={{
         label: {control: 'text'},

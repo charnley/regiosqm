@@ -63,3 +63,5 @@ start_storybook:
 
 start_jupyter:
 	jupyter lab
+
+start_node: node-dev

@@ -1,4 +1,4 @@
-import '../src/regiosqm_web/globals.css'
+import '../public/build/bundle.css'
 import '../public/fonts/font.css'
 import '../public/fontawesome/css/all.css'
 

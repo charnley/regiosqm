@@ -7,6 +7,7 @@ import livereload from 'rollup-plugin-livereload'
 import {terser} from 'rollup-plugin-terser'
 import css from 'rollup-plugin-css-only'
 
+import postcssImport from 'postcss-import'
 import sveltePreprocess from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH
@@ -45,10 +46,11 @@ export default {
             preprocess: sveltePreprocess({
                 sourceMap: !production,
                 postcss: {
-                    plugins: [require('tailwindcss')(), require('autoprefixer')()],
+                    plugins: [require('postcss-import')(), require('tailwindcss')(), require('autoprefixer')()],
                 },
             }),
         }),
+
         // we'll extract any component CSS out into
         // a separate file - better for performance
         css({output: 'bundle.css'}),
@@ -62,6 +64,7 @@ export default {
             browser: true,
             dedupe: ['svelte'],
         }),
+
         commonjs(),
 
         // In dev mode, call `npm run start` once
